@@ -9,6 +9,7 @@ var fs = require('fs')
 ,	properties = require ("properties-parser")
 ,	utils = require("./utils")
 ,	zip = require('express-zip')
+,	path = require("path")
 ,	defaultPropFile = __dirname + '/downloads/static/default.properties'
 ,	userMap = {};
 
@@ -116,17 +117,19 @@ exports.downloadZip = function(req,res){
 				}
 			})
 
-		res.zip(filesArr,"templates.zip");
+		res.zip(filesArr,"templates.zip", function(){
+
+			userMap[req.ip] = null;
+
+			// clean up the directories for now 
+			rmdir(__dirname + "/uploads/" + req.ip);
+			rmdir(__dirname + "/downloads/" + req.ip);
+		});
 	}
 	else
 	{
 		res.send(500);
 	}
-
-	userMap[req.ip] = null;
-
-	console.log('userMap is ',userMap);
-	
 };
 
 exports.fileUpload = function(req,res){
@@ -186,3 +189,22 @@ function createFile(req,res,file)
 		});
   
 }
+
+var rmdir = function(dir) {
+	var list = fs.readdirSync(dir);
+	for(var i = 0; i < list.length; i++) {
+		var filename = path.join(dir, list[i]);
+		var stat = fs.statSync(filename);
+		
+		if(filename == "." || filename == "..") {
+			// pass these files
+		} else if(stat.isDirectory()) {
+			// rmdir recursively
+			rmdir(filename);
+		} else {
+			// rm fiilename
+			fs.unlinkSync(filename);
+		}
+	}
+	fs.rmdirSync(dir);
+};
