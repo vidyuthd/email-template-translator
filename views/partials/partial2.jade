@@ -1,23 +1,16 @@
 .row
-	.span12
+	.span8
 		p 
 			b How to Use
 		ul(style="margin:0 !important")
-			ol 1) 
+			ol(ng:non-bindable) 0. Upload any sample html file with placeholders {{KEY}} (or {{{KEY}}} if text has html) where you want to translate
+			ol 1. Upload a properties file with keys of placeholders and the values which you would like to translate
+			ol 2. 
 				a(ng-click='getFile("/downloads/static/default.properties")')#download Click here 
 				to to download the default properties file
-			ol 2) Update the properties file with more keys whose values which you would like to translate.
-				for ex: 
-			ol 3) Update your email template with placeholders with same value as keys added in properties file.
-			ol 4) Upload the email template along with properties file
-			ol 5) Click on done button to download the zip file
-			ol 6) The downloaded file will have all the translated email templates in all current supported languages
-			ol 7) If you want to add additional languages, please upload a .langs file which has values as language codes
-			ol 8)  
+			ol 3. Click on done. This will download a zip file which will get the translated files in (en,de,pt,es,fr,it,ja) languages
+			ol 4. If you want to add additional languages, please upload a .langs file which has values as language codes
+			ol 5.  
 				a(ng-click='getFile("/downloads/static/sample.langs")')#download Click here
 				to  to get the sample langs file
 
-
-
-
-		
