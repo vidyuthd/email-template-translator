@@ -22,3 +22,11 @@
 3. If you want additional languages upload .langs file with values as code of language
 
 
+## Licensing
+
+This is available under MIT License
+
+## Thanks 
+
+The base of project was borrowed from 
+1. [angular-express-bootstrap-seed](https://github.com/jimakker/angular-express-bootstrap-seed)
