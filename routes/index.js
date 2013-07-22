@@ -32,7 +32,7 @@ exports.deleteFile = function(req,res){
 	var userObj = userMap[req.ip]
 	var file = req.params.file;
 	var fileObj = __dirname+'/uploads/' + req.ip + '/' + file;
-	if(userObj.indexOf(fileObj) > 0)
+	if(userObj && userObj.indexOf(fileObj) > 0)
 	{
 		var stat = fs.statSync(fileObj);
 		if(stat.isFile())
@@ -41,13 +41,19 @@ exports.deleteFile = function(req,res){
 			userObj.pop(userObj[fileObj]);
 		}
 	}
+	res.send(200);	
 }
 
 exports.makeTemplates = function(req,res){
 	var userObj = userMap[req.ip]
-	,	htmlFileArr = userObj.filter(function(file){ return file.match(/\w+\.htm/ig) });
+	,	htmlFileArr = [];
 
-	if(htmlFileArr.length <= 0)
+	if(userObj)
+	{
+		htmlFileArr = userObj.filter(function(file){ return file.match(/\w+\.htm/ig) });
+	}
+
+	if(htmlFileArr && htmlFileArr.length <= 0)
 	{
 		res.send(500, { error: 'NO_HTML_FILE_UPLOADED_YET' });
 	}
