@@ -28,13 +28,32 @@ exports.fileDownload = function(req,res){
      res.download(path);
 };
 
-exports.makeTemplates = function(req,res){
-	var userObj = userMap[req.ip];
-	
-	if(userObj)
+exports.deleteFile = function(req,res){
+	var userObj = userMap[req.ip]
+	var file = req.params.file;
+	var fileObj = __dirname+'/uploads/' + req.ip + '/' + file;
+	if(userObj.indexOf(fileObj) > 0)
 	{
-		var htmlFileArr = userObj.filter(function(file){ return file.match(/\w+\.html/ig) })
-			,propertiesFileArr = userObj.filter(function(file){ return file.match(/\w+\.properties/ig) })
+		var stat = fs.statSync(fileObj);
+		if(stat.isFile())
+		{
+			fs.unlinkSync(fileObj);
+			userObj.pop(userObj[fileObj]);
+		}
+	}
+}
+
+exports.makeTemplates = function(req,res){
+	var userObj = userMap[req.ip]
+	,	htmlFileArr = userObj.filter(function(file){ return file.match(/\w+\.htm/ig) });
+
+	if(htmlFileArr.length <= 0)
+	{
+		res.send(500, { error: 'NO_HTML_FILE_UPLOADED_YET' });
+	}
+	else if(userObj && htmlFileArr.length > 0) 
+	{
+		var propertiesFileArr = userObj.filter(function(file){ return file.match(/\w+\.properties/ig) })
 			,langsFileArr = userObj.filter(function(file){ return file.match(/\w+\.langs/ig) });
 
 		var defaultData = properties.read(defaultPropFile)
@@ -111,7 +130,7 @@ exports.downloadZip = function(req,res){
 			,filesArr = [];
 
 		files.forEach(function(file){
-				if(file.indexOf(".html") > 0)
+				if(file.indexOf(".html") > 0 || file.indexOf(".htm") > 0)
 				{
 					filesArr.push({"path": userDownloadsDir + '/' + file, "name" : file});
 				}

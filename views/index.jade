@@ -13,7 +13,7 @@ block body
       div(ng-controller='AppCtrl')
         div 
           div#dropzone
-            form(action="/file-upload", method="post", enctype="multipart/form-data").dropzone.dz-clickable
+            form(action="/file-upload", method="post", enctype="multipart/form-data").dropzone.dz-clickable#my-dropzone
               div.dz-default.dz-message              
                 span 
         div(ng-view)
@@ -32,7 +32,12 @@ block body
   script(src='js/lib/jquery/jquery-1.9.1.min.js')
   script(src='bootstrap/js/bootstrap.min.js')
   script.
-    Dropzone.prototype.defaultOptions.acceptedFiles = '.html,.properties,.langs';
+    Dropzone.prototype.defaultOptions.acceptedFiles = '.htm,.html,.properties,.langs';
     Dropzone.prototype.defaultOptions.addRemoveLinks = true;
+    Dropzone.autoDiscover = false;
     $('#button').tooltip('show');
+    var myDropzone = new Dropzone("#my-dropzone");
+    myDropzone.on('removedfile',function(file){
+      jQuery.ajax('/deleteFile/'+file.name);
+    });
 
