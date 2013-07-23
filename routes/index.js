@@ -94,10 +94,22 @@ exports.makeTemplates = function(req,res){
 					var inputHtmlFileData = fs.readFileSync(file);
 					var	template = Handlebars.compile(inputHtmlFileData.toString());
 
+					// logic for changing file name
 					var arr = file.split("/");
 					var resource = arr[arr.length-1];
-					arr[arr.length - 1] =  resource.replace('.','_'+lang + '.');
+
+					if(resource.indexOf('_en') < 0)
+					{
+						arr[arr.length - 1] =  resource.replace('.','_'+lang + '.');
+					}
+					else
+					{
+						// handling files which have _en in them already
+						arr[arr.length - 1] =  resource.replace(/\_\w+\./,'_'+lang + '.');
+					}
+
 					var outputHtmlFile  = arr.join("/");
+
 					outputHtmlFile = outputHtmlFile.replace(/\/uploads\//,'/downloads/');
 
 					var result = template(data);
@@ -106,6 +118,7 @@ exports.makeTemplates = function(req,res){
 					        fs.writeFileSync(outputHtmlFile,result);
 					        if((htmlFileArr.indexOf(file) === htmlFileArr.length - 1) && (supportedLangs.indexOf(lang) === supportedLangs.length - 1))
 					        {
+					        	// once we have done for all the files , send 200 response code after a sec
 					        	setTimeout(function(){ res.send(200); }, 1000);
 					        }
 					    } else {
