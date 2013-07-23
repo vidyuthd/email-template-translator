@@ -28,11 +28,13 @@ function AppCtrl($scope, $http,$window) {
   					 	  	$window.location = '/downloadZip';
                   jQuery('.container-narrow').unmask();
                   $scope.successMsgs = [];
+                  $scope.failedValidations = [];
                   $scope.successMsgs.push(successMessages["SUCCESS_TX_COMPLETE"]);
                    myDropzone.removeAllFiles();
   					 	  }).
   					 	  error(function(data, status, headers, config) {	
   					 	  	//reset failedvalidations
+                  jQuery('.container-narrow').unmask();
   					 	  	$scope.failedValidations = [];
   					 	  	$scope.failedValidations.push(errorMessages[data.error]);
   					 	  });

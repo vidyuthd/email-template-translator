@@ -65,6 +65,7 @@ var fs = require('fs')
           }
         }
         catch(e) {
+          console.log('exception is e',e);
           throw new Exception('got errr while parsing',e);
         }
       });
