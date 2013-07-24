@@ -46,7 +46,8 @@ exports.deleteFile = function(req,res){
 
 exports.makeTemplates = function(req,res){
 	var userObj = userMap[req.ip]
-	,	htmlFileArr = [];
+	,	htmlFileArr = []
+	,	langs = req.query.langs;
 
 	if(userObj)
 	{
@@ -79,6 +80,11 @@ exports.makeTemplates = function(req,res){
 				supportedLangs.push(extraLangsJSON[_i]);
 			}
 		});
+
+		if(langs)
+		{
+			supportedLangs = langs.split(",");
+		}
 				
 		// iterate over all the supported languages, for each language tx all the html files
 		supportedLangs.forEach(function(lang){

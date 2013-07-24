@@ -23,6 +23,13 @@ function AppCtrl($scope, $http,$window) {
   $scope.download = function()
   					 {
               jQuery('.container-narrow').mask("Translating...");
+              // logic for storing selected languages
+              var selectedItems = jQuery('.btn-group .active')
+              var selectedLangs = [];
+              for(var _i=0;_i<selectedItems.length;_i++)
+              {
+                selectedLangs.push(jQuery(selectedItems[_i]).attr('value'));
+              }
   					 	$http({method: 'GET', url: '/makeFiles'}).
   					 	  success(function(data, status, headers, config) {
   					 	  	$window.location = '/downloadZip';
