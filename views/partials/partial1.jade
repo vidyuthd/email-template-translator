@@ -1,19 +1,19 @@
 .row-fluid
 	.span12
-		.text-error(ng-repeat="message in failedValidations"){{message}}
-		.text-success(ng-repeat="message in successMsgs"){{message}}
-		.message Choose Languages in which template should be translated(If nothing is chosen, will translate for all languages): 
+		.message Choose Languages in which your template(s) should be translated(If nothing is chosen, will translate for all languages shown): 
 			.btn-group(data-toggle="buttons-checkbox", ng-controller="AppCtrl")
 				button(type="button",value="en").btn.btn-primary English 
-				button(type="button",value="de").btn.btn-primary Deutch
+				button(type="button",value="de").btn.btn-primary Deutsch
 				button(type="button",value="fr").btn.btn-primary Français 
 				button(type="button",value="es").btn.btn-primary Español
 				button(type="button",value="it").btn.btn-primary Italiano
 				button(type="button",value="ja").btn.btn-primary Japanese
 				button(type="button",value="pt").btn.btn-primary Português
+		br
+		.text-error(ng-repeat="message in failedValidations"){{message}}
+		.text-success(ng-repeat="message in successMsgs"){{message}}
 	.span4
 	.span4 
-		br 
 		button(ng-click="download()").btn.btn-block#button Translate
 		
 		

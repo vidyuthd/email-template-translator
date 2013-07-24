@@ -1,18 +1,17 @@
-.row
-	.span8
+.row-fluid
+	.span12
 		p 
 			b How to Use
-		ul(style="margin:0 !important")
-			ol 0. Upload any sample html file with placeholders 
-				span(ng:non-bindable) {{KEY}} (or {{{KEY}}} if text has html) where you want to translate,  Refer the sample html file 
+		ol
+			li Upload any sample html file with placeholders 
+				span(ng:non-bindable) {{KEY}} (or {{{KEY}}} if text has html) where you want to translate, Refer the sample html file 
 				a(ng-click='getFile("/downloads/static/sample.html")')#download here
-			ol 1. 
+			li 
 				a(ng-click='getFile("/downloads/static/default.properties")')#download Click here 
-				to to download the default properties file which has some predefined properties
-			ol 2. Upload the same or user defined properties file with user defined and the values which you would like to translate
-			ol 3. Click on Translate. This will download a zip file which will get the translated files in (en,de,pt,es,fr,it,ja) languages
-			ol 4. If you want to add additional languages, please upload a .langs file which has values as language codes
-			ol 5.  
+				to to download the default properties file which has common text used in all templates
+			li  Upload the same by adding more keys or creating new user defined properties file with values which you would 		like to translate
+			li  Click on Translate. This will download a zip file which will have all the translated files in user selected 		languages or all if not selected
+			li  If you want to add additional languages, please upload a .langs file which has values as language codes 
 				a(ng-click='getFile("/downloads/static/sample.langs")')#download Click here
 				to  to get the sample langs file
 
