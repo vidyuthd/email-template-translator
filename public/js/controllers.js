@@ -22,7 +22,7 @@ function AppCtrl($scope, $http,$window) {
 
   $scope.download = function()
   					 {
-              jQuery('.container-narrow').mask("Waiting...");
+              jQuery('.container-narrow').mask("Translating...");
   					 	$http({method: 'GET', url: '/makeFiles'}).
   					 	  success(function(data, status, headers, config) {
   					 	  	$window.location = '/downloadZip';
