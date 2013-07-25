@@ -30,7 +30,7 @@ function AppCtrl($scope, $http,$window) {
               {
                 selectedLangs.push(jQuery(selectedItems[_i]).attr('value'));
               }
-  					 	$http({method: 'GET', url: '/makeFiles'}).
+  					 	 $http({method: 'GET', url: '/makeFiles?langs='+selectedLangs.join(",")}).
   					 	  success(function(data, status, headers, config) {
   					 	  	$window.location = '/downloadZip';
                   jQuery('.container-narrow').unmask();
