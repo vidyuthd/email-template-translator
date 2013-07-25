@@ -55,6 +55,24 @@
     return returnJSONStr;
   }
 
+  function unique(src) {
+    var arr = [];
+    for(var i = 0; i < src.length; i++) {
+        if(!contains(arr,src[i])) {
+            arr.push(src[i]);
+        }
+    }
+    return arr; 
+
+    function contains(src,v)
+    {
+      for(var i = 0; i < src.length; i++) {
+          if(src[i] === v) return true;
+      }
+      return false;
+    }
+}
+
   var languages = new Array();
 
   languages.push('en');
@@ -69,6 +87,7 @@
   utils.supportedLangs = languages;
   utils.parseJSONStr= parseJSONStr;
   utils.mergeJSONStr = mergeJSONStr;
+  utils.unique = unique;
 
  })(utils);
 

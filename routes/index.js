@@ -73,18 +73,23 @@ exports.makeTemplates = function(req,res){
 			mergeData = utils.mergeJSONStr(fileJSONStr,mergeData);
 		});
 
+		var userGivenLangs = [];
 		langsFileArr.forEach(function(langFile){
 			var extraLangsJSON = properties.read(langFile);
 			for(var _i in extraLangsJSON)
 			{
-				supportedLangs.push(extraLangsJSON[_i]);
+				userGivenLangs.push(extraLangsJSON[_i]);
 			}
+			supportedLangs = supportedLangs.concat(userGivenLangs);
 		});
 
 		if(langs)
 		{
 			supportedLangs = langs.split(",");
+			supportedLangs = supportedLangs.concat(userGivenLangs);
 		}
+
+		supportedLangs = utils.unique(supportedLangs);
 				
 		// iterate over all the supported languages, for each language tx all the html files
 		supportedLangs.forEach(function(lang){
