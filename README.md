@@ -24,7 +24,7 @@
 
 ## Licensing
 
-This is available under MIT License
+This is available under MIT License & BSD License
 
 ## Thanks 
 
