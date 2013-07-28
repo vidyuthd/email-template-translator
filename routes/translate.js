@@ -1,8 +1,7 @@
 
 var translate = {};
 var fs = require('fs')
-    ,request = require('request')
-    ,properties = require ("properties-parser");
+    ,request = require('request');
     
 (function(translate){
 
