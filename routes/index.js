@@ -32,13 +32,13 @@ exports.deleteFile = function(req,res){
 	var userObj = userMap[req.ip]
 	var file = req.params.file;
 	var fileObj = __dirname+'/uploads/' + req.ip + '/' + file;
-	if(userObj && userObj.indexOf(fileObj) > 0)
+	if(userObj && userObj.indexOf(fileObj) >= 0)
 	{
 		var stat = fs.statSync(fileObj);
 		if(stat.isFile())
 		{
 			fs.unlinkSync(fileObj);
-			userObj.pop(userObj[fileObj]);
+			userObj.splice(userObj.indexOf(fileObj),1);
 		}
 	}
 	res.send(200);	
