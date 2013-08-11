@@ -99,9 +99,44 @@ exports.makeTemplates = function(req,res){
 				'dest'	 : lang
 			};
 
-			translate.doTranslate(mergeData ,options, function(err,data){
+			var obj = {};
+			var genMergeData = {};
+			var count = 0;
 
-				htmlFileArr.forEach(function(file){
+			function copy(src,dest)
+			{
+				if (null == src || "object" != typeof src) return src;
+
+				  for (var attr in src) {
+				      if (src.hasOwnProperty(attr)) dest[attr] = src[attr];
+				  }
+				  return dest;
+			}
+
+			function equals(src,dest)
+			{
+				if(null == src || "object" != typeof src) return false;	
+
+				for(var attr in src)
+				{
+					if(dest[attr])
+					{
+						continue;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+
+			function callback(err,data)
+			{
+				genMergeData = copy(data,genMergeData);
+				if(equals(mergeData,genMergeData))
+				{
+					htmlFileArr.forEach(function(file){
 					var inputHtmlFileData = fs.readFileSync(file);
 					var	template = Handlebars.compile(inputHtmlFileData.toString());
 
@@ -123,7 +158,7 @@ exports.makeTemplates = function(req,res){
 
 					outputHtmlFile = outputHtmlFile.replace(/\/uploads\//,'/downloads/');
 
-					var result = template(data);
+					var result = template(genMergeData);
 					fs.mkdir(outputHtmlFile.substr(0,outputHtmlFile.lastIndexOf("/")),function(e){
 					    if(!e || (e && e.code === 'EEXIST')){
 					        fs.writeFileSync(outputHtmlFile,result);
@@ -139,7 +174,26 @@ exports.makeTemplates = function(req,res){
 					    }
 					});	 
 				});
-			});
+				}
+			}
+
+
+			// this is required for batch processing of translating since http request max takes only 2048 words in it
+			for(var _i in mergeData)
+			{
+				count++;
+				obj[_i] = mergeData[_i];
+				if(count%3 == 0 && count !== 0)
+				{
+					translate.doTranslate(obj,options, callback);
+					obj = {};
+				}
+			}
+
+			if(count%3 != 0)
+			{
+				translate.doTranslate(obj,options, callback);
+			}
 		});
 	}
 	else

@@ -25,17 +25,25 @@
   // replace with class="notranslate"
   function parseJSONStr(data)
   {
-      var refs = data.match(/\s\$\{+\w+\}/ig);
+      // for items with only ${}
+      var refs = data.match(/\s*\$\{+\w+\}[^"&\/]/ig);
 
-      data = data.replace(/\s\$\{+\w+\}/ig, "<span class='notranslate'> </span>");
-
-      for(_i =0 ;_i <refs.length ; _i++)
+      if(refs !== null && typeof refs !== "undefined")
       {
-        data = data.replace(/'notranslate'>/,'"notranslate"> '+refs[_i]);
-      }
+        for(_i =0 ;_i <refs.length ; _i++)
+        {
+          var wd = refs[_i];
+          data = data.replace(/\s*\$\{+\w+\}[^"&\/]/i, "<span class='notranslate'> </span>" + wd.substr(wd.length-1));
+        }
+
+        for(_i =0 ;_i <refs.length ; _i++)
+        {
+          var wd = refs[_i];
+          data = data.replace(/'notranslate'>/,'"notranslate"> '+wd.substr(0,wd.length-1));
+        }
+      } 
 
       return data;
-
   }
 
   function mergeJSONStr(sourceStr,destStr)

@@ -1,7 +1,9 @@
 
 var translate = {};
 var fs = require('fs')
-    ,request = require('request');
+    ,request = require('request')
+    ,utils = require("./utils.js");
+
     
 (function(translate){
 
@@ -10,17 +12,17 @@ var fs = require('fs')
           'key': '<GOOGLE_API_KEY>',
   };
 
-  function doTranslate(jsonData,options,callback)
+  function doTranslate(data,options,callback)
   { 
-      makeRequest(jsonData,options,callback);
+      makeRequest(data,options,callback);
   }
 
-  function makeRequest(jsonData,options,callback)
+  function makeRequest(data,options,callback)
   {
       var uri = gapi.url + '?key='+ gapi.key;
-      for(var i in jsonData)
+      for(var i in data)
       {
-        uri += '&q='+ encodeURI(jsonData[i]); 
+        uri += '&q='+ encodeURI(utils.parseJSONStr(data[i])); 
       }
 
       if(typeof options === 'undefined')
@@ -45,27 +47,25 @@ var fs = require('fs')
         try {
           var response = JSON.parse(body);
           var dataArray  = new Array();
-          var translatedJSONData = {};
           if(response.data) 
           {
              dataArray = response["data"]["translations"];
           }
 
           var ele = 0;
-          for(var i in jsonData)
+          for(var i in data)
           {
-              jsonData[i] = dataArray[ele]['translatedText'];
+              data[i] = dataArray[ele]['translatedText'];
               ele++
           }
 
           if(callback)
           {
-            callback(null,jsonData);  
+            callback(null,data);  
           }
         }
         catch(e) {
           console.log('exception is e',e);
-          throw new Exception('got errr while parsing',e);
         }
       });
   }
