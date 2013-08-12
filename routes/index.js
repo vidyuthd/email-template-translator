@@ -133,6 +133,20 @@ exports.makeTemplates = function(req,res){
 
 			function callback(err,data)
 			{
+				if(err)
+				{
+					// sent from Google
+					if(err && err.errors)
+					{
+						res.send(500, { error: err.errors[0]['reason']});
+					}
+					else
+					{
+						res.send(500, { error: 'GOOGLE_PROBLEM'});
+					}
+					return;
+				}
+
 				genMergeData = copy(data,genMergeData);
 				if(equals(mergeData,genMergeData))
 				{

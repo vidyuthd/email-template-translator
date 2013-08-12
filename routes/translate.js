@@ -41,11 +41,10 @@ var fs = require('fs')
       var requestOptions = {'url': uri};
        request(requestOptions, function(err, resp, body){
         if(err){
-          throw new Exception('got err while requesting',err);
           callback(err,null);
         }
+        var response = JSON.parse(body);
         try {
-          var response = JSON.parse(body);
           var dataArray  = new Array();
           if(response.data) 
           {
@@ -59,13 +58,14 @@ var fs = require('fs')
               ele++
           }
 
-          if(callback)
+          if(callback && response.data)
           {
             callback(null,data);  
           }
         }
         catch(e) {
-          console.log('exception is e',e);
+          console.log('exception is e',e + ' ,error is ',response.error);
+          callback(response.error,null);
         }
       });
   }
