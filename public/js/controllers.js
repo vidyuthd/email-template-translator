@@ -8,6 +8,7 @@ function AppCtrl($scope, $http,$window) {
   "NO_FILES_UPLOADED_YET": "Please upload input html file before pressing Translate button. Check the Help Section for using this tool",
   "NO_HTML_FILE_UPLOADED_YET": "Please ensure that atleast one html file is uploaded before clicking Translate button",
   "dailyLimitExceeded": "Error From Google: Daily Limit Exceeded",
+  "keyInvalid": "Error From Google: Invalid Key, Bad Request",
   "GOOGLE_PROBLEM": "Check your files once for special chars or there seems to be some problem while translating"
  };
 
