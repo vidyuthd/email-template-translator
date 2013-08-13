@@ -8,7 +8,8 @@
     "jade": ">= 0.0.1",
     "handlebars": "1.x",
     "properties-parser":"0.x",
-    "express-zip": "1.x"
+    "express-zip": "1.x",
+    "request" : ">2.0"
       },
   "scripts": {
     "test": "express1"
