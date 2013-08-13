@@ -1,6 +1,6 @@
 {
   "name": "email-template-translator",
-  "version": "0.1",
+  "version": "v0.1.0",
   "description": "Express app for tranlating Email Templates",
   "main": "index.js",
   "dependencies": {
