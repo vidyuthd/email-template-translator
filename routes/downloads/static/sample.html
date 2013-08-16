@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>${solutionNameForTrialPages}</title>
+	<style type="text/css">
+	body,td,th {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: 58595b;
+	font-size: 12px;}
+	</style>
+</head>
+<body style="background-color: #fff; color: #58595b; width: 798px; margin: 0 auto;
+    text-align: center; font-family: Trebuchet MS,Arial,sans-serif; font-size: 12px;">
+    <table style="width: 599px; border: solid 1px #939598; margin: auto;" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<img src="cid:mailTemplateLogo" alt="${solutionNameForTrialPages}" style="border:none;" width="200px" height="115px"/></a>
+		</td>
+		<td>
+			<img src="cid:background" alt="" height="115px" />
+		</td>
+		</tr>
+ 		<tr>
+            <td colspan="2" style="padding: 10px 0 0 30px; text-align: left; ">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="vertical-align: top; zwidth: 360px; padding-right:22px;">
+                        <div style="color: #58595b; font-size: 10px; text-align: left;">
+                        <p>{{{heading}}}<br />
+                        </p>
+						</div>
+                      	<div style="color: #a11d21; font-size: 18px; text-align: left; font-weight:bold;">Activation URL</div>
+						<br>{{{addressing}}}. 
+						<p style="background-color:#E5F4FB; height:auto; width:auto; color: black;">
+								<br/>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{{activationUrl}}}:&nbsp;</b>${ACTIVATION_URL}<br>&nbsp;
+						</p>
+                        <p>
+						${solutionNameForTrialPages} {{{helpDetails}}}. 
+						</p>
+						<div>
+							<p style="background-color:#E5F4FB; height:auto; width:auto; color: black;">
+								<br/>&nbsp;&nbsp;&nbsp;&nbsp;<b>Username:&nbsp;</b>${USERNAME}<br/>&nbsp;
+								&nbsp;&nbsp;<b>Domain:&nbsp;</b>${DOMAIN}<br/>&nbsp;
+								&nbsp;&nbsp;<b>Corporate Identifier:&nbsp</b>${CORPORATE_ID}<br/>&nbsp;
+								&nbsp;&nbsp;<b>Email Address:&nbsp;</b>${EMAIL}<br>&nbsp;
+							</p>
+                        </div>
+						<p>
+						{{{contactSupport}}}. 
+						</p>
+						${QR_CODE} 
+                        </td>
+                    </tr>
+                </table>
+                </td>
+        	</tr>
+			${emailSupportInfo}
+    </table><br /><br />
+</body>
+</html>
